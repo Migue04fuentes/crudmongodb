@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')   //lo que se requiere del módulo mongoose
 
 
-const MONGODB_URI = "mongodb://"+notes-app_host+"/"+notes-app;
+const MONGODB_URI = 'mongodb://localhost/notes-app'
 
 mongoose.connect(MONGODB_URI, {
     useUnifiedTopology: true,
