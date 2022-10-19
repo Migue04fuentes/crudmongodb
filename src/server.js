@@ -5,6 +5,7 @@
 const express = require('express');   // guardar lo se requiere del módulo express
 const exphbs = require('express-handlebars'); //motor de plantillas
 const path = require('path');
+const morgan = require('morgan');  //Enlista la peticones que van llegando
 
 // inicializaciones
 // Ejecución del módulo express
@@ -20,7 +21,10 @@ app.engine('.hbs', exphbs.engine ({
     extname : '.hbs'
 }))
 app.set('view engine', '.hbs');   //Motor de las vistas
+
+
 // Middlewares   Funciones que se van ejecutando a medidad que van llegano peticiones
+app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}))   // le dice al servidor que convierta los datos en tipo jsosn
 
 

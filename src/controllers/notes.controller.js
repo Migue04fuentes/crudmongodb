@@ -5,11 +5,12 @@ const notesCtrl = {};
 
 // renderización a la petición de un formulario
 notesCtrl.renderNoteForm = (req, res) => {
-    res.send('note add');
+    res.render('notes/new-note');
 };
 
 //Create notes
 notesCtrl.crearNewNote = (req, res) =>{
+    console.log(req.body);
     res.send('new note');
 };
 
