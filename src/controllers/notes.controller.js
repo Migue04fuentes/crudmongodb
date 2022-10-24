@@ -1,5 +1,8 @@
 const router = require("../routes/notes.routes");
 
+const Note = require('../models/Note');  //Se llama el modelo de datos como se guardaran
+
+
 // objeto que tendrá todos las funciones de este controlador
 const notesCtrl = {};
 
@@ -9,28 +12,31 @@ notesCtrl.renderNoteForm = (req, res) => {
 };
 
 //Create notes
-notesCtrl.crearNewNote = (req, res) =>{
-    console.log(req.body);
+notesCtrl.crearNewNote = async (req, res) => {
+    const { title, description } = req.body;    
+    const newNote = new Note({title, description});
+    await newNote.save();  //Guardar objeto en mongodb
     res.send('new note');
 };
 
 //Renderizar note
-notesCtrl.renderNotes = (req, res) => {
-    res.send('render notes');
+notesCtrl.renderNotes = async (req, res) => {
+    const notes = await Note.find().lean();               //buscar todos los datos que están en una colencción
+    res.render('notes/all-notes', { notes });
 };
 
 //Mostrar las notas
-notesCtrl.renderEditForm = (req, res) =>{
-   res.send('render edit form');
+notesCtrl.renderEditForm = (req, res) => {
+    res.send('render edit form');
 };
 
 // Actualizar note
-notesCtrl.updateNote = (req, res) =>{
+notesCtrl.updateNote = (req, res) => {
     res.send('Update note');
 };
 
 // Eliminar notas
-notesCtrl.deletenote = (req, res) =>{
+notesCtrl.deletenote = (req, res) => {
     res.send('Delete Note');
 };
 

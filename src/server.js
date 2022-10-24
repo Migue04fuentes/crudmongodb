@@ -14,7 +14,7 @@ const app = express();
 // Sesión de configuracio/setting lo que quiero que haga express basado en algunos módulos
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));    //para establecer donde está la carpeta view.
-app.engine('.hbs', exphbs.engine ({
+app.engine('.hbs', exphbs.engine({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'),'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),

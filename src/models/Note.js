@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');  //para definir lo que voy a guardar en mongodb; crear la clase para tener métodos y propiedades
 
+
+
 const NoteSchema = new Schema({
     title: {
         type: String,
@@ -17,4 +19,4 @@ const NoteSchema = new Schema({
     timestamps: true
 })
 
-module.exports = model('note', NoteSchema);
+module.exports = model('Note', NoteSchema);  // de último se puede añadir el nombre de la colección en la cual se quiere guardar
