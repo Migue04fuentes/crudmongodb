@@ -13,8 +13,8 @@ notesCtrl.renderNoteForm = (req, res) => {
 
 //Create notes
 notesCtrl.crearNewNote = async (req, res) => {
-    const { title, description } = req.body;    
-    const newNote = new Note({title, description});
+    const { title, description } = req.body;
+    const newNote = new Note({ title, description });
     await newNote.save();  //Guardar objeto en mongodb
     res.redirect('/notes');
 };
@@ -26,19 +26,22 @@ notesCtrl.renderNotes = async (req, res) => {
 };
 
 //Mostrar las notas
-notesCtrl.renderEditForm = (req, res) => {
-    res.send('render edit form');
+notesCtrl.renderEditForm = async (req, res) => {
+    const note = await Note.findById(req.params.id).lean();
+    res.render('notes/edit-note', { note })
 };
 
 // Actualizar note
-notesCtrl.updateNote = (req, res) => {
-    res.send('Update note');
+notesCtrl.updateNote = async(req, res) => {
+    const { title, description } = req.body;
+    await Note.findByIdAndUpdate(req.params.id, { title, description });
+    res.redirect('/notes');
 };
 
 // Eliminar notas
 notesCtrl.deletenote = async (req, res) => {
-  await Note.findByIdAndDelete(req.params.id);
-  res.redirect('/notes');
+    await Note.findByIdAndDelete(req.params.id);
+    res.redirect('/notes');
 };
 
 
