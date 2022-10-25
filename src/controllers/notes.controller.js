@@ -16,7 +16,7 @@ notesCtrl.crearNewNote = async (req, res) => {
     const { title, description } = req.body;    
     const newNote = new Note({title, description});
     await newNote.save();  //Guardar objeto en mongodb
-    res.send('new note');
+    res.redirect('/notes');
 };
 
 //Renderizar note
@@ -36,8 +36,9 @@ notesCtrl.updateNote = (req, res) => {
 };
 
 // Eliminar notas
-notesCtrl.deletenote = (req, res) => {
-    res.send('Delete Note');
+notesCtrl.deletenote = async (req, res) => {
+  await Note.findByIdAndDelete(req.params.id);
+  res.redirect('/notes');
 };
 
 

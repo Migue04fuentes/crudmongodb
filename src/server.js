@@ -6,6 +6,7 @@ const express = require('express');   // guardar lo se requiere del módulo expr
 const exphbs = require('express-handlebars'); //motor de plantillas
 const path = require('path');
 const morgan = require('morgan');  //Enlista la peticones que van llegando
+const methodOverride =require('method-override');   //Para facilitar el proceso de eliminado.
 
 // inicializaciones
 // Ejecución del módulo express
@@ -25,8 +26,8 @@ app.set('view engine', '.hbs');   //Motor de las vistas
 
 // Middlewares   Funciones que se van ejecutando a medidad que van llegano peticiones
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}))   // le dice al servidor que convierta los datos en tipo jsosn
-
+app.use(express.urlencoded({extended: false}));  // le dice al servidor que convierta los datos en tipo jsosn
+app.use(methodOverride('_method'));
 
 // Global Variables 
 
