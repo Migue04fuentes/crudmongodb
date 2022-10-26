@@ -16,6 +16,7 @@ notesCtrl.crearNewNote = async (req, res) => {
     const { title, description } = req.body;
     const newNote = new Note({ title, description });
     await newNote.save();  //Guardar objeto en mongodb
+    req.flash('success_msg', 'Note Added Successfully'); //Guarda  tan solo el mensaje en el servidor
     res.redirect('/notes');
 };
 
@@ -35,12 +36,14 @@ notesCtrl.renderEditForm = async (req, res) => {
 notesCtrl.updateNote = async(req, res) => {
     const { title, description } = req.body;
     await Note.findByIdAndUpdate(req.params.id, { title, description });
+    req.flash('success_msg', 'Note Updated Successfully');
     res.redirect('/notes');
 };
 
 // Eliminar notas
 notesCtrl.deletenote = async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);
+    req.flash('success_msg', 'Note Deleted Successfully');
     res.redirect('/notes');
 };
 

@@ -7,6 +7,8 @@ const exphbs = require('express-handlebars'); //motor de plantillas
 const path = require('path');
 const morgan = require('morgan');  //Enlista la peticones que van llegando
 const methodOverride =require('method-override');   //Para facilitar el proceso de eliminado.
+const flash = require('connect-flash');    //Mandar mensajes
+const session = require('express-session');  //Definir el lugar donde se van a guardar los mensajes
 
 // inicializaciones
 // Ejecución del módulo express
@@ -28,8 +30,19 @@ app.set('view engine', '.hbs');   //Motor de las vistas
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));  // le dice al servidor que convierta los datos en tipo jsosn
 app.use(methodOverride('_method'));
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(flash());
 
-// Global Variables 
+// Global Variables toda la aplicación puede acceder a ellas
+app.use((req, res, next) =>{
+    res.locals.success_msg = req.flash('success_msg');
+    next();
+})
+
 
 //Routes  Sesión de rutas
 app.use(require('./routes/index.routes'));
